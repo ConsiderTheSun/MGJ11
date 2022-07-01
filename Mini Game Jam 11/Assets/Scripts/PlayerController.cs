@@ -41,4 +41,9 @@ public class PlayerController : MonoBehaviour{
 
 		GetComponent<Rigidbody2D>().AddForce(speed*direction);
 	}
+
+
+	public void SetPlayerPostion(Vector3 pos){
+		transform.position = pos;
+	}
 }
