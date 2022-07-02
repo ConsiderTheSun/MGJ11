@@ -7,11 +7,16 @@ public class PlayerController : MonoBehaviour{
 	[Header("Set in Inspector")]
 	public GameController gameController;
 	public PackageManager packageManager;
+	public Sprite[] movementSprites;
+	public Sprite[] idleSprites;
 	public float speed = 0.01f;
 	public float jumpStrength = 1f;
 	public float grabRange = 1f;
 	public float knockbackLR = 300f;
 	public float knockbackUD = 100f;
+	public float moveAnimTime = 1f;
+	public float idleAnimTime = 1f;
+
 	[Header("Set Dynamically")]
 	public int health = 3;
 
@@ -20,13 +25,19 @@ public class PlayerController : MonoBehaviour{
 	float jumpTimer = 0;
 	GameObject heldPackage = null;
 
+	public enum Mode {Idle, Moving};
+
+	Mode currentMode = Mode.Idle;
+	float animationTimer = 0f;
+	int animationFrame = 0;
+
 	// Start is called before the first frame update
 	void Start(){
 
 	}
 
 	public void UpdatePlayer(){
-
+		UpdateMode();
 		// if player clicks, try to grab/drop a package
 		if(Input.GetMouseButtonDown(0)){
 			if(heldPackage == null){
@@ -37,9 +48,40 @@ public class PlayerController : MonoBehaviour{
 			}
 		}
 
+		AnimatePlayer();
+
 	}
 	public void FixedUpdatePlayer(){
 		Move();
+	}
+
+	void UpdateMode(){
+		if(Mathf.Abs(GetComponent<Rigidbody2D>().velocity.x) > 0.2f){
+			currentMode = Mode.Moving;
+		}
+		else{
+			currentMode = Mode.Idle;
+		}
+	}
+
+	void AnimatePlayer(){
+		animationTimer += Time.deltaTime;
+
+		//checks if it is time to advance the animation
+		if(currentMode == Mode.Idle){
+			GetComponent<SpriteRenderer>().sprite = idleSprites[0];
+		}
+		//checks if it is time to advance the animation
+		else if(currentMode == Mode.Moving && animationTimer > moveAnimTime){
+			// resets the timer
+			animationTimer = 0;
+
+			// updates the current frame and sets it
+			animationFrame = (animationFrame+1)%movementSprites.Length;
+			GetComponent<SpriteRenderer>().sprite = movementSprites[animationFrame];
+		}
+
+
 	}
 
 	void Move(){
@@ -60,10 +102,10 @@ public class PlayerController : MonoBehaviour{
 
 
 		GetComponent<Rigidbody2D>().AddForce(speed*direction);
-
+		//transform.position += Time.deltaTime * speed*direction;
 		//checks if the player is touching the ground
 		grounded = Physics2D.OverlapBox(transform.position - new Vector3(0,1.0f,0),
-																		new Vector2(0.3f,0.01f),0f, LayerMask.GetMask("Platforms") | LayerMask.GetMask("Package"));
+																		new Vector2(0.3f,0.01f),0f, LayerMask.GetMask("Platforms"));
 
 		//jump
 		if(Input.GetKey("space") && grounded && jumpTimer >= jumpCooldown){
