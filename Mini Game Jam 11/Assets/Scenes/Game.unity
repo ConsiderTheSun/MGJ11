@@ -2798,11 +2798,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameController: {fileID: 1522781738}
   packageManager: {fileID: 1090990339}
-  speed: 25
+  movementSprites:
+  - {fileID: 21300000, guid: 53de17077de81b54eb2fda3cf2e5f2a3, type: 3}
+  - {fileID: 21300000, guid: 219d80d0172acbc4ba0be5dacf0987ad, type: 3}
+  - {fileID: 21300000, guid: e0ca603c1b9dbfa46a39d40594245930, type: 3}
+  - {fileID: 21300000, guid: 891403eb360e60f4b94e50ae5b59d445, type: 3}
+  - {fileID: 21300000, guid: 512bda7f8b87c7748a94fcd4f4b590f2, type: 3}
+  - {fileID: 21300000, guid: 77594bfa537b00443b6211ff3b99dd8c, type: 3}
+  idleSprites:
+  - {fileID: 21300000, guid: aaea597f8c3fe7e4c8031034d9c30db5, type: 3}
+  speed: 10
   jumpStrength: 7
   grabRange: 1.5
   knockbackLR: 300
   knockbackUD: 100
+  moveAnimTime: 0.1
+  idleAnimTime: 1
   health: 3
 --- !u!212 &2009984159
 SpriteRenderer:
@@ -2884,7 +2895,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 0.5
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
