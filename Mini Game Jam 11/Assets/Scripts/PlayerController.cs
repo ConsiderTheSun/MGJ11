@@ -68,11 +68,11 @@ public class PlayerController : MonoBehaviour{
 
 		//checks if the player is touching the ground
 		grounded = Physics2D.OverlapBox(transform.position - new Vector3(0,1.0f,0),
-																		new Vector2(0.3f,0.01f),LayerMask.GetMask("Platforms"));
+																		new Vector2(0.3f,0.01f),0f, LayerMask.GetMask("Platforms") | LayerMask.GetMask("Package"));
 
 		//jump
 		if(Input.GetKey("space") && grounded && jumpTimer >= jumpCooldown){
-			Debug.Log("Jump!");
+			//Debug.Log("Jump!");
 			GetComponent<Rigidbody2D>().AddForce(jumpStrength*transform.up, ForceMode2D.Impulse);
 			jumpTimer = 0;
 		}
@@ -95,11 +95,11 @@ public class PlayerController : MonoBehaviour{
 		if(package == null){
 			return;
 		}
-		Debug.Log("Closest Package: " + package.name);
+		//Debug.Log("Closest Package: " + package.name);
 
 		//checks if the player is close enough to grab the package
 		if(grabRange > Vector3.Distance(transform.position,package.transform.position)){
-			Debug.Log("Grab!");
+			//Debug.Log("Grab!");
 			heldPackage = package;
 			// heldPackage.GetComponent<BoxCollider2D>().enabled = false;
 		}
@@ -108,6 +108,10 @@ public class PlayerController : MonoBehaviour{
 	void DropPackage(){
 		heldPackage.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
 		heldPackage.GetComponent<Rigidbody2D>().AddForce(10f* (new Vector3(1f,1f,0f)),ForceMode2D.Impulse);
+		heldPackage = null;
+	}
+
+	public void RemovePackage(){
 		heldPackage = null;
 	}
 
