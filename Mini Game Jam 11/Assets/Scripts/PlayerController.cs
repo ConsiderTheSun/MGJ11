@@ -10,8 +10,6 @@ public class PlayerController : MonoBehaviour{
 	public float speed = 0.01f;
 	public float jumpStrength = 1f;
 	public float grabRange = 1f;
-	public float knockbackLR = 300f;
-	public float knockbackUD = 100f;
 	[Header("Set Dynamically")]
 	public int health = 3;
 
@@ -118,15 +116,7 @@ public class PlayerController : MonoBehaviour{
 	private void OnCollisionEnter2D(Collision2D collision){
 
 		if( collision.gameObject.layer == LayerMask.NameToLayer("Enemy")){
-			Debug.Log("hit");
 			gameController.TakeHit();
-			Vector2 difference = (transform.position - collision.transform.position).normalized;
-			if(difference.x < 0) {
-				GetComponent<Rigidbody2D>().AddForce(transform.up * knockbackUD + (transform.right * knockbackLR) * -1);
-			}
-			else {
-				GetComponent<Rigidbody2D>().AddForce(transform.up * knockbackUD + transform.right * knockbackLR);
-			}
 		}
 	}
 }
