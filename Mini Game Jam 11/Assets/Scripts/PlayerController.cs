@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour{
 	public int health = 3;
 
 	bool grounded = false;
-	float jumpCooldown = 0.2f;
+	float jumpCooldown = 0.3f;
 	float jumpTimer = 0;
 	GameObject heldPackage = null;
 
@@ -71,8 +71,14 @@ public class PlayerController : MonoBehaviour{
 																		new Vector2(0.3f,0.01f),LayerMask.GetMask("Platforms"));
 
 		//jump
-		if(Input.GetKey("space") && grounded){
+		if(Input.GetKey("space") && grounded && jumpTimer >= jumpCooldown){
+			Debug.Log("Jump!");
 			GetComponent<Rigidbody2D>().AddForce(jumpStrength*transform.up, ForceMode2D.Impulse);
+			jumpTimer = 0;
+		}
+
+		if(jumpTimer < jumpCooldown){
+			jumpTimer += Time.deltaTime;
 		}
 	}
 

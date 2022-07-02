@@ -2015,7 +2015,7 @@ MonoBehaviour:
   gameController: {fileID: 1522781738}
   packageManager: {fileID: 1090990339}
   speed: 25
-  jumpStrength: 1
+  jumpStrength: 7
   grabRange: 1.5
   health: 3
 --- !u!212 &2009984159
