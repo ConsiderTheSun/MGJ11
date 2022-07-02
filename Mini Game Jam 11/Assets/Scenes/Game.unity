@@ -280,15 +280,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileArray:
-  - {fileID: 11400000, guid: f63568dde89c290408eb38e6a8cd0771, type: 2}
-  - {fileID: 11400000, guid: 27a0a353cd79908499ff8e31023c1846, type: 2}
-  - {fileID: 11400000, guid: 2e48f1f5162810c498612a710d72948d, type: 2}
-  - {fileID: 11400000, guid: 18a1fe8796b2a6f40979c593179547cb, type: 2}
-  - {fileID: 11400000, guid: c4e8752a4e019fd41a25f76c53f6a037, type: 2}
-  - {fileID: 11400000, guid: af57309a39dbd3840a754bb92075f839, type: 2}
-  - {fileID: 11400000, guid: 0edb42d787e050b41968fba3644a64c2, type: 2}
-  - {fileID: 11400000, guid: 5ac8810105000f1489ad2c17c33498c5, type: 2}
-  - {fileID: 11400000, guid: 920e8005f34b554468a6b9408b4ffc8a, type: 2}
+  - {fileID: 11400000, guid: e8e0e5ff77bf54d4f939f8ec5d408f20, type: 2}
+  - {fileID: 11400000, guid: 6fa7a4190d513fc42b7c53f3d9e6705e, type: 2}
+  - {fileID: 11400000, guid: e9ed61038ab0d7449a67bbd8d5192084, type: 2}
+  - {fileID: 11400000, guid: 614aad38df759ab4b9e309029419ca5c, type: 2}
+  - {fileID: 11400000, guid: 2a861f72daf7b7340bb8aa68503dced6, type: 2}
+  - {fileID: 11400000, guid: 787203182314dfc489acf2d41726aba1, type: 2}
   platforms: {fileID: 1974314262}
   player: {fileID: 2009984158}
 --- !u!1 &1368618137
@@ -324,6 +321,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 2009984160}
+  movementSprites:
+  - {fileID: 1067287383, guid: 4a080090c2b1b8146bb1fa1f6eca4f3b, type: 3}
+  - {fileID: 2067262662, guid: 4a080090c2b1b8146bb1fa1f6eca4f3b, type: 3}
+  moveAnimTime: 0.3
   speed: 1
 --- !u!212 &1368618139
 SpriteRenderer:
@@ -385,7 +386,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1368618137}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.54, y: 2.58, z: 0}
+  m_LocalPosition: {x: 9, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -420,10 +421,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.5
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0.5
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
