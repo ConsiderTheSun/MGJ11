@@ -25,8 +25,6 @@ public class PlayerController : MonoBehaviour{
 
 	public void UpdatePlayer(){
 
-		//Move();
-
 		// if player clicks, try to grab/drop a package
 		if(Input.GetMouseButtonDown(0)){
 			if(heldPackage == null){
@@ -43,7 +41,6 @@ public class PlayerController : MonoBehaviour{
 		}
 	}
 	public void FixedUpdatePlayer(){
-		//transform.position += Time.deltaTime * transform.right * 0.1f;
 		Move();
 	}
 
@@ -101,7 +98,6 @@ public class PlayerController : MonoBehaviour{
 		if(grabRange > Vector3.Distance(transform.position,package.transform.position)){
 			//Debug.Log("Grab!");
 			heldPackage = package;
-			// heldPackage.GetComponent<BoxCollider2D>().enabled = false;
 		}
 	}
 

@@ -32,6 +32,14 @@ public class PackageManager : MonoBehaviour{
 		Collider2D deliveredPackage = Physics2D.OverlapBox(dropLocation1.position,
 																		new Vector2(1f,2f), 0f,LayerMask.GetMask("Package"));
 
+		if(deliveredPackage == null){
+			deliveredPackage = Physics2D.OverlapBox(dropLocation2.position,
+																		new Vector2(1f,2f), 0f,LayerMask.GetMask("Package"));
+		}
+		if(deliveredPackage == null){
+			deliveredPackage = Physics2D.OverlapBox(dropLocation3.position,
+																		new Vector2(1f,2f), 0f,LayerMask.GetMask("Package"));
+		}
 
 		if(deliveredPackage != null){
 			Debug.Log(deliveredPackage.gameObject.name + " " + deliveredPackage.gameObject.layer);
