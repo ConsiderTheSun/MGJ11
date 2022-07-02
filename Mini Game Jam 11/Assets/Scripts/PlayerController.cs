@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour{
 	public int health = 3;
 
 	bool grounded = false;
+	float jumpCooldown = 0.2f;
+	float jumpTimer = 0;
 	GameObject heldPackage = null;
 
 	// Start is called before the first frame update
