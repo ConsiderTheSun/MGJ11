@@ -19,7 +19,7 @@ public class CameraController : MonoBehaviour
     {
 		Vector3 finalPosition = playerTransform.position + cameraOffset;
 		Vector3 lerpPosition = Vector3.Lerp(transform.position, finalPosition, cameraSpeed);
-		transform.position = lerpPosition;
+		transform.position = (lerpPosition.x, lerpPosition.y, -10);
     }
 	// lerpPosition is the current camera position
 
@@ -30,5 +30,5 @@ public class CameraController : MonoBehaviour
 	void Update(){
 		transform.position = new Vector3(playerTransform.position.x,playerTransform.position.y, -10);
 	}
-}
 */
+}
