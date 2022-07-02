@@ -118,9 +118,9 @@ public class PlayerController : MonoBehaviour{
 	private void OnCollisionEnter2D(Collision2D collision){
 
 		if( collision.gameObject.layer == LayerMask.NameToLayer("Enemy")){
+			Debug.Log("hit");
 			gameController.TakeHit();
 			Vector2 difference = (transform.position - collision.transform.position).normalized;
-			Debug.Log(difference.x + ", " + difference.y);
 			if(difference.x < 0) {
 				GetComponent<Rigidbody2D>().AddForce(transform.up * knockbackUD + (transform.right * knockbackLR) * -1);
 			}
