@@ -94,7 +94,7 @@ public class GridController : MonoBehaviour{
 		}
 	}
 	void PlaceTile(int x, int y, int tileID){
-		Debug.Log("(" + x + ", " + y + ") " + tileID);
+		//Debug.Log("(" + x + ", " + y + ") " + tileID);
 		platforms.SetTile(new Vector3Int(x,y,0) , tileArray[tileID]);
 		
 	}
