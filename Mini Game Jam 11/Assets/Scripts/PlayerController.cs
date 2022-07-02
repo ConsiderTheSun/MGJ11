@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour{
 	public float speed = 0.01f;
 	public float jumpStrength = 1f;
 	public float grabRange = 1f;
+	public float knockbackLR = 300f;
+	public float knockbackUD = 100f;
 	[Header("Set Dynamically")]
 	public int health = 3;
 
@@ -99,8 +101,8 @@ public class PlayerController : MonoBehaviour{
 	}
 
 	void DropPackage(){
-		int flip = GetComponent<SpriteRenderer>().flipX ? -1:1;
-		heldPackage.transform.position = transform.position + flip*transform.right;
+		// int flip = GetComponent<SpriteRenderer>().flipX ? -1:1;
+		heldPackage.transform.position = transform.position; // + flip*transform.right;
 		heldPackage.gameObject.SetActive(true);
 		//heldPackage.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
 		//heldPackage.GetComponent<Rigidbody2D>().AddForce(10f* (new Vector3(1f,1f,0f)),ForceMode2D.Impulse);
@@ -116,7 +118,15 @@ public class PlayerController : MonoBehaviour{
 	private void OnCollisionEnter2D(Collision2D collision){
 
 		if( collision.gameObject.layer == LayerMask.NameToLayer("Enemy")){
+			Debug.Log("hit");
 			gameController.TakeHit();
+			Vector2 difference = (transform.position - collision.transform.position).normalized;
+			if(difference.x < 0) {
+				GetComponent<Rigidbody2D>().AddForce(transform.up * knockbackUD + (transform.right * knockbackLR) * -1);
+			}
+			else {
+				GetComponent<Rigidbody2D>().AddForce(transform.up * knockbackUD + transform.right * knockbackLR);
+			}
 		}
 	}
 }
