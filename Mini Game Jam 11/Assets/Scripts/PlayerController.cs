@@ -8,10 +8,12 @@ public class PlayerController : MonoBehaviour{
 	public GameController gameController;
 	public PackageManager packageManager;
 	public float speed = 0.01f;
+	public float jumpStrength = 1f;
 	public float grabRange = 1f;
 	[Header("Set Dynamically")]
 	public int health = 3;
 
+	bool grounded = false;
 	GameObject heldPackage = null;
 
 	// Start is called before the first frame update
@@ -20,6 +22,9 @@ public class PlayerController : MonoBehaviour{
 	}
 
 	public void UpdatePlayer(){
+
+		//Move();
+
 		// if player clicks, try to grab/drop a package
 		if(Input.GetMouseButtonDown(0)){
 			if(heldPackage == null){
@@ -31,8 +36,8 @@ public class PlayerController : MonoBehaviour{
 		}
 
 		if(heldPackage != null){
-			int flip = GetComponent<SpriteRenderer>().flipX ? -1:1;
-			heldPackage.transform.position = transform.position + flip*transform.right;
+			HoldPackage();
+			
 		}
 	}
 	public void FixedUpdatePlayer(){
@@ -49,18 +54,24 @@ public class PlayerController : MonoBehaviour{
 		Vector3 direction = Vector3.zero; 
 		if(Input.GetKey("a")){
 			direction = -transform.right;
+			GetComponent<SpriteRenderer>().flipX = true;
 		}
 		else if(Input.GetKey("d")){
 			direction = transform.right;
-		}
-
-		//temp direction
-		if(Input.GetKey("w")){
-			direction += transform.up;
+			GetComponent<SpriteRenderer>().flipX = false;
 		}
 
 
 		GetComponent<Rigidbody2D>().AddForce(speed*direction);
+
+		//checks if the player is touching the ground
+		grounded = Physics2D.OverlapBox(transform.position - new Vector3(0,1.0f,0),
+																		new Vector2(0.3f,0.01f),LayerMask.GetMask("Platforms"));
+
+		//jump
+		if(Input.GetKey("space") && grounded){
+			GetComponent<Rigidbody2D>().AddForce(jumpStrength*transform.up, ForceMode2D.Impulse);
+		}
 	}
 
 
@@ -87,8 +98,14 @@ public class PlayerController : MonoBehaviour{
 	}
 
 	void DropPackage(){
+		heldPackage.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
 		heldPackage.GetComponent<Rigidbody2D>().AddForce(10f* (new Vector3(1f,1f,0f)),ForceMode2D.Impulse);
 		heldPackage = null;
+	}
+
+	void HoldPackage(){
+		int flip = GetComponent<SpriteRenderer>().flipX ? -1:1;
+		heldPackage.transform.position = transform.position + flip*transform.right;
 	}
 
 	// used to check if the player was hit
