@@ -20,6 +20,9 @@ public abstract class Enemy : MonoBehaviour{
 	protected float animationTimer = 0f;
 	protected int animationFrame = 0;
 
+	public enum Mode {Idle, Moving};
+	protected Mode currentMode = Mode.Idle;
+
 	// Start is called before the first frame update
 	protected virtual void Start(){
 		enemySprite = GetComponent<SpriteRenderer>();

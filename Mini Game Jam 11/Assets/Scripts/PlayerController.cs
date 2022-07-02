@@ -5,10 +5,12 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour{
 
 	[Header("Set in Inspector")]
+	public GameController gameController;
 	public float speed = 0.01f;
 
-	//[Header("Set Dynamically")]
-	
+	[Header("Set Dynamically")]
+	public int health = 3;
+
 	// Start is called before the first frame update
 	void Start(){
 
@@ -45,5 +47,14 @@ public class PlayerController : MonoBehaviour{
 
 	public void SetPlayerPostion(Vector3 pos){
 		transform.position = pos;
+	}
+
+
+	// used to check if the player was hit
+	private void OnCollisionEnter2D(Collision2D collision){
+
+		if( collision.gameObject.layer == LayerMask.NameToLayer("Enemy")){
+			gameController.TakeHit();
+		}
 	}
 }

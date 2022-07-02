@@ -6,6 +6,11 @@ public class GameController : MonoBehaviour{
 	[Header("Set in Inspector")]
 	public PlayerController player;
 	public GridController grid;
+	public GUIController gui;
+
+
+	[Header("Set Dynamically")]
+	bool playing = true;
 
 	// Start is called before the first frame update
 	void Start(){
@@ -18,7 +23,27 @@ public class GameController : MonoBehaviour{
 	}
 
 	void FixedUpdate(){
-		player.FixedUpdatePlayer();
+		if(playing){
+			player.FixedUpdatePlayer();
+		}
+		
 
+	}
+
+	public void TakeHit(){
+		player.health--;
+		if(player.health > 0){
+			gui.SetHealth(player.health);
+		}
+		else if(player.health == 0){
+			gui.SetHealth(player.health);
+			EndGame(false);
+		}
+
+	}
+
+	void EndGame(bool win){
+		playing = false;
+		Debug.Log("Game Over :(");
 	}
 }
