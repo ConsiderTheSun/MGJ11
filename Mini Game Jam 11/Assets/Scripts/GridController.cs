@@ -67,25 +67,25 @@ public class GridController : MonoBehaviour{
 	int GetTileID(char tileCharacter){
 		switch(tileCharacter){
 			case '/':
-				return 6;
-			case '-':
-				return 3;
-			case '_':
 				return 0;
+			case '-':
+				return 0;
+			case '_':
+				return 1;
 			case 'a':
-				return 1;
+				return 3;
 			case 'b':
-				return 2;
+				return 3;
 			case 'c':
-				return 1;
+				return 3;
 			case 'd':
-				return 2;
+				return 3;
 			case 'e':
-				return 1;
+				return 3;
 			case 'f':
-				return 2;
+				return 3;
 			case 'h':
-				return 2;
+				return 0;
 			case 'g':
 				return -2;
 			case '.':
@@ -94,7 +94,7 @@ public class GridController : MonoBehaviour{
 		}
 	}
 	void PlaceTile(int x, int y, int tileID){
-		Debug.Log("(" + x + ", " + y + ") " + tileID);
+		//Debug.Log("(" + x + ", " + y + ") " + tileID);
 		platforms.SetTile(new Vector3Int(x,y,0) , tileArray[tileID]);
 		
 	}
