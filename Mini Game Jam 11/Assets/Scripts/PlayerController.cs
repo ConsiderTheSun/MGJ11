@@ -35,10 +35,6 @@ public class PlayerController : MonoBehaviour{
 			}
 		}
 
-		if(heldPackage != null){
-			HoldPackage();
-			
-		}
 	}
 	public void FixedUpdatePlayer(){
 		Move();
@@ -98,16 +94,16 @@ public class PlayerController : MonoBehaviour{
 		if(grabRange > Vector3.Distance(transform.position,package.transform.position)){
 			//Debug.Log("Grab!");
 			heldPackage = package;
+			heldPackage.gameObject.SetActive(false);
 		}
 	}
 
 	void DropPackage(){
-		heldPackage.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
-		heldPackage.GetComponent<Rigidbody2D>().AddForce(10f* (new Vector3(1f,1f,0f)),ForceMode2D.Impulse);
-		heldPackage = null;
-	}
-
-	public void RemovePackage(){
+		int flip = GetComponent<SpriteRenderer>().flipX ? -1:1;
+		heldPackage.transform.position = transform.position + flip*transform.right;
+		heldPackage.gameObject.SetActive(true);
+		//heldPackage.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+		//heldPackage.GetComponent<Rigidbody2D>().AddForce(10f* (new Vector3(1f,1f,0f)),ForceMode2D.Impulse);
 		heldPackage = null;
 	}
 

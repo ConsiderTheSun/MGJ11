@@ -44,7 +44,7 @@ public class PackageManager : MonoBehaviour{
 
 		if(deliveredPackage != null){
 			Debug.Log(deliveredPackage.gameObject.name + " " + deliveredPackage.gameObject.layer);
-			player.RemovePackage();
+
 			packageList.Remove(deliveredPackage.gameObject);
 			Destroy(deliveredPackage.gameObject);
 		}
