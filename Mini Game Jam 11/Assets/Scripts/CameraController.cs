@@ -8,6 +8,11 @@ public class CameraController : MonoBehaviour
 	public Transform playerTransform;
 	public Vector3 cameraOffset;
 	public float cameraSpeed = 0.1f;
+	// max speed if plaer is at edge of screen
+	public float maxSpeedUp = 1f;
+
+	// distance between center and right of screen
+	private float distanceCenterToRight;
 	// Start is called before the first frame update
 	
 	void Start()
@@ -22,6 +27,25 @@ public class CameraController : MonoBehaviour
 		transform.position = (lerpPosition.x, lerpPosition.y, -10);
     }
 	// lerpPosition is the current camera position
+
+	void lateUpdate()
+    {
+		float speed = minSpeed;
+
+		// if player is to the right of the screen
+		if (transform.position.x < playerTransform.position.x)
+        {
+			// calc speed that increases further over the player is
+			speed += Mathf.Lerp(
+				0,
+				maxSpeedUp,
+				// how far from center play has moved, normalized
+				(playerTransform.position.x - transform.position.x) / distanceCenterToRight);
+        }
+		// move the camera
+		transform.Translate(Vector3.up * speed * Time.deltaTime);
+    }
+	// need to impliment for left as well
 
 
 /* i believe this is unneeded with vector3 lerp added ~fredddie
