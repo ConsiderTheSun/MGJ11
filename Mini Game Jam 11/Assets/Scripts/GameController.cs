@@ -15,11 +15,14 @@ public class GameController : MonoBehaviour{
 	// Start is called before the first frame update
 	void Start(){
 		//grid.LoadMap();
+
 	}
 
 	// Update is called once per frame
 	void Update(){
-		
+		if(playing){
+			player.UpdatePlayer();
+		}
 	}
 
 	void FixedUpdate(){
