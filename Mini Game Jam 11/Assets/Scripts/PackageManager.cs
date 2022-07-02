@@ -30,7 +30,8 @@ public class PackageManager : MonoBehaviour{
 	// Update is called once per frame
 	void Update(){
 		Collider2D deliveredPackage = Physics2D.OverlapBox(dropLocation1.position,
-																		new Vector2(1f,2f), 0f,LayerMask.GetMask("Package"));
+			new Vector2(dropLocation1.localScale.x,dropLocation1.localScale.y), 
+			0f,LayerMask.GetMask("Package"));
 
 		if(deliveredPackage == null){
 			deliveredPackage = Physics2D.OverlapBox(dropLocation2.position,
