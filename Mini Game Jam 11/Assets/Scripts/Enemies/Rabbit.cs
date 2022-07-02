@@ -13,6 +13,16 @@ public class Rabbit : Enemy{
 	// Update is called once per frame
 	protected override void Update(){
 		base.Update();
+    //checks if the rabbit is touching the ground
+		grounded = Physics2D.OverlapBox((transform.position - new Vector3(0, 0.51f, 0)),
+																		new Vector2(0.5f, 0.5f), 0f, (LayerMask.GetMask("Platforms") |
+                                    LayerMask.GetMask("Package1") | LayerMask.GetMask("Package2")
+                                    | LayerMask.GetMask("Package3")));
+    jumpTimer += Time.deltaTime;
+    if(grounded && jumpTimer >= jumpCooldown){
+			GetComponent<Rigidbody2D>().AddForce(jumpHeight * transform.up, ForceMode2D.Impulse);
+			jumpTimer = 0;
+		}
 	}
 
 	protected override void Move(){

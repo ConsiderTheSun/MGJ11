@@ -8,8 +8,9 @@ public abstract class Enemy : MonoBehaviour{
 	
 	public Sprite[] movementSprites;
 	public float moveAnimTime = 1f;
-
+	public float jumpHeight = 50f;
 	public float speed = 0.01f;
+	public float jumpCooldown = 0.2f;
 
 	[Header("Set Dynamically")]
 	protected SpriteRenderer enemySprite;
@@ -19,6 +20,8 @@ public abstract class Enemy : MonoBehaviour{
 
 	protected float animationTimer = 0f;
 	protected int animationFrame = 0;
+	protected bool grounded = false;
+	protected float jumpTimer = 0f;
 
 	public enum Mode {Idle, Moving};
 	protected Mode currentMode = Mode.Idle;

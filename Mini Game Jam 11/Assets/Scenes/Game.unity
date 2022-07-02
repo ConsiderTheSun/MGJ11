@@ -931,7 +931,9 @@ MonoBehaviour:
   movementSprites:
   - {fileID: 21300000, guid: 62c11d61248ac3b48b8b5d21d644be9a, type: 3}
   moveAnimTime: 0.3
+  jumpHeight: 1.5
   speed: 2
+  jumpCooldown: 2
 --- !u!50 &908554943
 Rigidbody2D:
   serializedVersion: 4
@@ -1247,7 +1249,9 @@ MonoBehaviour:
   - {fileID: 1067287383, guid: 4a080090c2b1b8146bb1fa1f6eca4f3b, type: 3}
   - {fileID: 2067262662, guid: 4a080090c2b1b8146bb1fa1f6eca4f3b, type: 3}
   moveAnimTime: 0.3
+  jumpHeight: 100
   speed: 1
+  jumpCooldown: 0.2
 --- !u!212 &1368618139
 SpriteRenderer:
   m_ObjectHideFlags: 0
