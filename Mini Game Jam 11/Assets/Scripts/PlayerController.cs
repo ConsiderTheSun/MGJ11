@@ -22,6 +22,13 @@ public class PlayerController : MonoBehaviour{
 	public float atkAnimTime = 1f;
 	public float idleAnimTime = 1f;
 
+
+	public AudioSource jumpSxf;
+	public AudioSource deliverySxf;
+	public AudioSource pickUpSxf;
+	public AudioSource dropSxf;
+	public AudioSource damageSxf;
+
 	[Header("Set Dynamically")]
 	public int health = 3;
 
@@ -51,6 +58,7 @@ public class PlayerController : MonoBehaviour{
 
 		// if player left clicks, try to attack
 		if(Input.GetMouseButtonDown(0) && currentMode != Mode.Attacking){
+			deliverySxf.Play();
 			animationFrame = 0;
 			currentMode = Mode.Attacking;
 		}
@@ -186,6 +194,7 @@ public class PlayerController : MonoBehaviour{
 		//jump
 		if(Input.GetKey("space") && grounded && jumpTimer >= jumpCooldown){
 			//Debug.Log("Jump!");
+			jumpSxf.Play();
 			GetComponent<Rigidbody2D>().AddForce(jumpStrength*transform.up, ForceMode2D.Impulse);
 			jumpTimer = 0;
 		}
@@ -213,12 +222,14 @@ public class PlayerController : MonoBehaviour{
 		//checks if the player is close enough to grab the package
 		if(grabRange > Vector3.Distance(transform.position,package.transform.position)){
 			//Debug.Log("Grab!");
+			pickUpSxf.Play();
 			heldPackage = package;
 			heldPackage.gameObject.SetActive(false);
 		}
 	}
 
 	void DropPackage(){
+		dropSxf.Play();
 		heldPackage.transform.position = transform.position + 0.5f*transform.up; 
 		heldPackage.gameObject.SetActive(true);
 		//heldPackage.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
@@ -235,7 +246,7 @@ public class PlayerController : MonoBehaviour{
 
 		if(collision.gameObject.layer == LayerMask.NameToLayer("Enemy") && !invincible){
 			//Debug.Log("hit");
-
+			damageSxf.Play();
 			gameController.TakeHit();
 
 			//knockbacks the player
