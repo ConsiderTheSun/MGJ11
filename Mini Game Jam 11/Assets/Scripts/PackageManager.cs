@@ -5,6 +5,7 @@ using UnityEngine;
 public class PackageManager : MonoBehaviour{
 	[Header("Set in Inspector")]
 	public GameController gameController;
+	public GUIController guiController;
 	public PlayerController player;
 	public Transform spawnLocation;
 	public Transform dropLocation1;
@@ -22,7 +23,7 @@ public class PackageManager : MonoBehaviour{
 
 	// Start is called before the first frame update
 	void Start(){
-
+		guiController.SetPackagesRemaining(spawnOrder.Length - spawnIndex);
 		SpawnPackage();
 	}
 
@@ -68,6 +69,7 @@ public class PackageManager : MonoBehaviour{
 			packageList.Remove(deliveredPackage.gameObject);
 			Destroy(deliveredPackage.gameObject);
 
+			guiController.SetPackagesRemaining(spawnOrder.Length - spawnIndex);
 			if(spawnIndex < spawnOrder.Length){
 				SpawnPackage();
 			}

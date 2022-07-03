@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour{
 	[Header("Set in Inspector")]
 	public GameController gameController;
 	public PackageManager packageManager;
+	public Transform attackArea;
 	public Sprite[] movementSprites;
 	public Sprite[] atkSprites;
 	public Sprite idleSprites;
@@ -144,11 +145,19 @@ public class PlayerController : MonoBehaviour{
 	}
 
 	void Attack(){
-		/*deliveredPackage = Physics2D.OverlapBox(dropLocation2.position,
-																		new Vector2(dropLocation2.localScale.x,dropLocation2.localScale.y), 
-																		0f,LayerMask.GetMask("Package2"));*/
 
-		GetComponent<SpriteRenderer>().color = Color.blue;
+		int flip = GetComponent<SpriteRenderer>().flipX ? -1:1;
+		Vector2 atkCenter = new Vector2(transform.position.x + flip*attackArea.localPosition.x,attackArea.position.y);
+		//Debug.Log(atkCenter);
+		Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(atkCenter,
+			attackArea.localScale.x,LayerMask.GetMask("Enemy"));
+
+
+		Debug.Log("Hits: " + hitEnemies.Length);
+		foreach(Collider2D enemy in hitEnemies){
+			Debug.Log(enemy.gameObject.name);
+			enemy.gameObject.GetComponent<Enemy>().Damage();
+		}
 	}
 
 	void Move(){
@@ -210,24 +219,22 @@ public class PlayerController : MonoBehaviour{
 	}
 
 	void DropPackage(){
-		// int flip = GetComponent<SpriteRenderer>().flipX ? -1:1;
-		heldPackage.transform.position = transform.position; // + flip*transform.right;
+		heldPackage.transform.position = transform.position + 0.5f*transform.up; 
 		heldPackage.gameObject.SetActive(true);
 		//heldPackage.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
 		//heldPackage.GetComponent<Rigidbody2D>().AddForce(10f* (new Vector3(1f,1f,0f)),ForceMode2D.Impulse);
 		heldPackage = null;
 	}
 
-	void HoldPackage(){
-		int flip = GetComponent<SpriteRenderer>().flipX ? -1:1;
-		heldPackage.transform.position = transform.position + flip*transform.right;
-	}
+	// void HoldPackage(){
+	// 	heldPackage.transform.position = transform.position;
+	// }
 
 	// used to check if the player was hit
 	private void OnCollisionStay2D(Collision2D collision){
 
 		if(collision.gameObject.layer == LayerMask.NameToLayer("Enemy") && !invincible){
-			Debug.Log("hit");
+			//Debug.Log("hit");
 
 			gameController.TakeHit();
 
@@ -243,7 +250,7 @@ public class PlayerController : MonoBehaviour{
 			// resets the invincibilityTimer
 			invincibilityTimer = 0f;
 			invincible = true;
-			GetComponent<SpriteRenderer>().color = Color.red;
+			GetComponent<SpriteRenderer>().color = new Color(1f,0.2704402f,0.4190495f);
 		}
 	}
 }

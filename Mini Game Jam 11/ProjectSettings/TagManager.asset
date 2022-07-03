@@ -47,11 +47,11 @@ TagManager:
   - name: Enemy
     uniqueID: 2052108747
     locked: 0
-  - name: Packages
-    uniqueID: 3188169787
-    locked: 0
   - name: Player
     uniqueID: 633793703
+    locked: 0
+  - name: Packages
+    uniqueID: 3188169787
     locked: 0
   - name: Platforms
     uniqueID: 46234921

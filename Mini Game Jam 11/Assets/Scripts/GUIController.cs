@@ -9,6 +9,8 @@ public class GUIController : MonoBehaviour{
 
 	public Sprite[] healthSprites;
 
+	public Text packageText;
+
 	// Start is called before the first frame update
 	void Start(){
 
@@ -30,5 +32,13 @@ public class GUIController : MonoBehaviour{
 				hpSlots[i].sprite = healthSprites[1];
 			}
 		}
+	}
+
+
+	public void SetPackagesRemaining(int r){
+		if(r >= 10)
+			packageText.text = "X " + r;
+		else
+			packageText.text = "X 0" + r;
 	}
 }
