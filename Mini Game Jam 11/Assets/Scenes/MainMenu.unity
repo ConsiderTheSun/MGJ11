@@ -310,7 +310,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -80.642, y: 83}
+  m_AnchoredPosition: {x: -49, y: 83}
   m_SizeDelta: {x: 454.7162, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &498396599
@@ -333,7 +333,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Evelyn Cullen\nMadeline Avis\nSakura \"Ai\" Shih\nFreddie \"ShayLinuxLycan\"
+  m_text: "Evelyn Cullen\nConsiderTheSun\nSakura \"Ai\" Shih\nFreddie \"ShayLinuxLycan\"
     Riley \nCody R. Melvin\nChloe Ng\nMason Thompson\nStyr0foam\nBlake Glenn-Reller\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8b1834b4c3e95874f9014421bd4373fb, type: 2}
@@ -675,7 +675,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -208, y: 149}
+  m_AnchoredPosition: {x: -187, y: 139.04999}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &927794732
@@ -1140,7 +1140,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 295, y: -175.4}
+  m_AnchoredPosition: {x: 234.5, y: -141.33}
   m_SizeDelta: {x: 105, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1334690612
@@ -1472,7 +1472,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 293.85, y: 173.12}
+  m_AnchoredPosition: {x: 233.35, y: 139.05}
   m_SizeDelta: {x: 107.2915, y: 44.567}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1852417303

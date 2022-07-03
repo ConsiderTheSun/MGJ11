@@ -74,8 +74,7 @@ public class PackageManager : MonoBehaviour{
 				SpawnPackage();
 			}
 			else{
-				//gameController.EndGame(true);
-				Debug.Log("WIN");
+				gameController.EndGame(true);
 			}
 		}
 	}
