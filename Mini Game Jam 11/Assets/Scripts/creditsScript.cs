@@ -9,14 +9,13 @@ public class creditsScript : MonoBehaviour
     {
         gameObject.SetActive(false); 
     }
-    IEnumerator waitForCredits()
-    {
-        yield return new WaitForSeconds(1);
-        gameObject.SetActive(true);
-    }
+
     public void showCredits()
     {
         gameObject.SetActive(true);
-        StartCoroutine(waitForCredits());
+    }
+    public void hideCredits()
+    {
+        gameObject.SetActive(false);
     }
 }
