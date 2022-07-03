@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ed2e2ecab8ab51a4eaa696f76bc1e22b
+guid: d7f10e523ac954b4fb788ba46244c8fa
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,11 +43,11 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
-  spriteExtrude: 0
+  spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 33.333
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -116,13 +116,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tempTiles_0
+      name: slimesAnim_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 32
-        width: 16
-        height: 16
+        y: 80
+        width: 40
+        height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -130,20 +130,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 224167c0cdce2d542b042939833c4425
-      internalID: 2101307604
+      spriteID: 4d58ab1542b3c164ebd3e5c680b7bdca
+      internalID: -1232950450
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tempTiles_1
+      name: slimesAnim_1
       rect:
         serializedVersion: 2
-        x: 16
-        y: 32
-        width: 16
-        height: 16
+        x: 40
+        y: 80
+        width: 40
+        height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -151,41 +151,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1886cbd0b5c846c4cb14f9650a11cb9e
-      internalID: 1229381594
+      spriteID: 2c0df23e4c320a04c8bd2e06e9bd7ecf
+      internalID: 1492236828
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tempTiles_2
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 32
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 19ea90d8685d90642bf4beaf9fe51cc4
-      internalID: 1465415088
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tempTiles_3
+      name: slimesAnim_2
       rect:
         serializedVersion: 2
         x: 0
-        y: 16
-        width: 16
-        height: 16
+        y: 40
+        width: 40
+        height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -193,20 +172,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4c5851836ddb95047b28e67d41337ec7
-      internalID: -281504707
+      spriteID: 6ad315657bbf88b4683fc4f59b2c45ba
+      internalID: -543737826
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tempTiles_4
+      name: slimesAnim_3
       rect:
         serializedVersion: 2
-        x: 16
-        y: 16
-        width: 16
-        height: 16
+        x: 40
+        y: 40
+        width: 40
+        height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -214,41 +193,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 90c4a4abeca4f214f88e4d16c34cdc7d
-      internalID: -353734132
+      spriteID: d5a567c28b84c23498c430225494096b
+      internalID: 536785905
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tempTiles_5
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 16
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ddd541682a5321d45856bc2463300b32
-      internalID: 566915748
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tempTiles_6
+      name: slimesAnim_4
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 16
+        width: 40
+        height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -256,20 +214,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 292f89477a0a1f54d90cfd0e0a6ce2d8
-      internalID: 480984644
+      spriteID: 8d50b49e0f3b26d4b867feaab1297106
+      internalID: 104064028
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tempTiles_7
+      name: slimesAnim_5
       rect:
         serializedVersion: 2
-        x: 16
+        x: 40
         y: 0
-        width: 16
-        height: 16
+        width: 40
+        height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -277,29 +235,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8d46189b2a52941468f7c9cc3d71651d
-      internalID: 237810647
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tempTiles_8
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2d76951072606c848a73288764e3ebcb
-      internalID: -2000278837
+      spriteID: 3afa93a5ce471684fa6d718cc56f58d3
+      internalID: -295924388
       vertices: []
       indices: 
       edges: []
@@ -315,18 +252,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      tempTiles_8: -2000278837
-      tempTiles_1: 1229381594
-      tempTiles_2: 1465415088
-      tempTiles_5: 566915748
-      tempTiles_0: 2101307604
-      tempTiles_6: 480984644
-      tempTiles_4: -353734132
-      tempTiles_3: -281504707
-      tempTiles_7: 237810647
+      slimesAnim_3: 536785905
+      slimesAnim_1: 1492236828
+      slimesAnim_5: -295924388
+      slimesAnim_0: -1232950450
+      slimesAnim_4: 104064028
+      slimesAnim_2: -543737826
   spritePackingTag: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 1
+  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
