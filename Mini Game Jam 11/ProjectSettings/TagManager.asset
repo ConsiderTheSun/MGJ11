@@ -13,11 +13,11 @@ TagManager:
   - UI
   - Enemy
   - Player
-  - Package
+  - Package1
   - Platforms
   - DropLocations
-  - 
-  - 
+  - Package2
+  - Package3
   - 
   - 
   - 
@@ -44,11 +44,11 @@ TagManager:
   - name: Background
     uniqueID: 4243556559
     locked: 0
-  - name: Player
-    uniqueID: 633793703
-    locked: 0
   - name: Enemy
     uniqueID: 2052108747
+    locked: 0
+  - name: Player
+    uniqueID: 633793703
     locked: 0
   - name: Packages
     uniqueID: 3188169787
