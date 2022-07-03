@@ -7,14 +7,19 @@ public class PlayerController : MonoBehaviour{
 	[Header("Set in Inspector")]
 	public GameController gameController;
 	public PackageManager packageManager;
+	public Transform attackArea;
 	public Sprite[] movementSprites;
-	public Sprite[] idleSprites;
+	public Sprite[] atkSprites;
+	public Sprite idleSprites;
+	public Sprite jumpSprite;
+	public float invincibilityLength = 0.5f;
 	public float speed = 0.01f;
 	public float jumpStrength = 1f;
 	public float grabRange = 1f;
 	public float knockbackLR = 300f;
 	public float knockbackUD = 100f;
 	public float moveAnimTime = 1f;
+	public float atkAnimTime = 1f;
 	public float idleAnimTime = 1f;
 
 	[Header("Set Dynamically")]
@@ -23,9 +28,14 @@ public class PlayerController : MonoBehaviour{
 	bool grounded = false;
 	float jumpCooldown = 0.3f;
 	float jumpTimer = 0;
+	float invincibilityTimer = 0;
+	bool invincible = false;
+	
+
+
 	GameObject heldPackage = null;
 
-	public enum Mode {Idle, Moving};
+	public enum Mode {Idle, Moving, Attacking};
 
 	Mode currentMode = Mode.Idle;
 	float animationTimer = 0f;
@@ -38,8 +48,14 @@ public class PlayerController : MonoBehaviour{
 
 	public void UpdatePlayer(){
 		UpdateMode();
-		// if player clicks, try to grab/drop a package
-		if(Input.GetMouseButtonDown(0)){
+
+		// if player left clicks, try to attack
+		if(Input.GetMouseButtonDown(0) && currentMode != Mode.Attacking){
+			animationFrame = 0;
+			currentMode = Mode.Attacking;
+		}
+		// if player right clicks, try to grab/drop a package
+		else if(Input.GetMouseButtonDown(1)){
 			if(heldPackage == null){
 				GrabPackage();
 			}
@@ -50,12 +66,25 @@ public class PlayerController : MonoBehaviour{
 
 		AnimatePlayer();
 
+
+		//ticks down invincibility time
+		if(invincibilityTimer < invincibilityLength){
+			invincibilityTimer += Time.deltaTime;
+		}
+		else if(invincible == true){
+			GetComponent<SpriteRenderer>().color = Color.white;
+			invincible = false;
+		}
+
 	}
 	public void FixedUpdatePlayer(){
 		Move();
 	}
 
 	void UpdateMode(){
+		if(currentMode == Mode.Attacking)
+			return;
+
 		if(Mathf.Abs(GetComponent<Rigidbody2D>().velocity.x) > 0.2f){
 			currentMode = Mode.Moving;
 		}
@@ -68,10 +97,41 @@ public class PlayerController : MonoBehaviour{
 		animationTimer += Time.deltaTime;
 
 		//checks if it is time to advance the animation
-		if(currentMode == Mode.Idle){
-			GetComponent<SpriteRenderer>().sprite = idleSprites[0];
+
+		//checks if the player is in the air
+		if(currentMode == Mode.Attacking){
+			if(animationTimer > atkAnimTime){
+				//currentMode = Mode.Idle;
+
+				// resets the timer
+				animationTimer = 0;
+
+				// updates the current frame and sets it
+				animationFrame++;// = (animationFrame+1);
+				
+				if(animationFrame == 2){
+					Attack();
+				}
+
+			}
+
+			//GetComponent<SpriteRenderer>().sprite = atkSprites[0];
+			if(animationFrame >= atkSprites.Length){
+				GetComponent<SpriteRenderer>().sprite = idleSprites;
+				currentMode = Mode.Idle;
+			}
+			else{
+				GetComponent<SpriteRenderer>().sprite = atkSprites[animationFrame];
+			}
 		}
-		//checks if it is time to advance the animation
+		else if(!grounded){
+			GetComponent<SpriteRenderer>().sprite = jumpSprite;
+		}
+		// checks for idle
+		else if(currentMode == Mode.Idle){
+			GetComponent<SpriteRenderer>().sprite = idleSprites;
+		}
+		//checks if it is time to advance the move animation
 		else if(currentMode == Mode.Moving && animationTimer > moveAnimTime){
 			// resets the timer
 			animationTimer = 0;
@@ -82,6 +142,22 @@ public class PlayerController : MonoBehaviour{
 		}
 
 
+	}
+
+	void Attack(){
+
+		int flip = GetComponent<SpriteRenderer>().flipX ? -1:1;
+		Vector2 atkCenter = new Vector2(transform.position.x + flip*attackArea.localPosition.x,attackArea.position.y);
+		//Debug.Log(atkCenter);
+		Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(atkCenter,
+			attackArea.localScale.x,LayerMask.GetMask("Enemy"));
+
+
+		Debug.Log("Hits: " + hitEnemies.Length);
+		foreach(Collider2D enemy in hitEnemies){
+			Debug.Log(enemy.gameObject.name);
+			enemy.gameObject.GetComponent<Enemy>().Damage();
+		}
 	}
 
 	void Move(){
@@ -105,7 +181,7 @@ public class PlayerController : MonoBehaviour{
 		//transform.position += Time.deltaTime * speed*direction;
 		//checks if the player is touching the ground
 		grounded = Physics2D.OverlapBox(transform.position - new Vector3(0,1.0f,0),
-																		new Vector2(0.3f,0.01f),0f, LayerMask.GetMask("Platforms"));
+																		new Vector2(0.3f,0.01f),0f, LayerMask.GetMask("Platforms") | LayerMask.GetMask("Enemy"));
 
 		//jump
 		if(Input.GetKey("space") && grounded && jumpTimer >= jumpCooldown){
@@ -143,25 +219,26 @@ public class PlayerController : MonoBehaviour{
 	}
 
 	void DropPackage(){
-		// int flip = GetComponent<SpriteRenderer>().flipX ? -1:1;
-		heldPackage.transform.position = transform.position; // + flip*transform.right;
+		heldPackage.transform.position = transform.position + 0.5f*transform.up; 
 		heldPackage.gameObject.SetActive(true);
 		//heldPackage.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
 		//heldPackage.GetComponent<Rigidbody2D>().AddForce(10f* (new Vector3(1f,1f,0f)),ForceMode2D.Impulse);
 		heldPackage = null;
 	}
 
-	void HoldPackage(){
-		int flip = GetComponent<SpriteRenderer>().flipX ? -1:1;
-		heldPackage.transform.position = transform.position + flip*transform.right;
-	}
+	// void HoldPackage(){
+	// 	heldPackage.transform.position = transform.position;
+	// }
 
 	// used to check if the player was hit
-	private void OnCollisionEnter2D(Collision2D collision){
+	private void OnCollisionStay2D(Collision2D collision){
 
-		if( collision.gameObject.layer == LayerMask.NameToLayer("Enemy")){
-			Debug.Log("hit");
+		if(collision.gameObject.layer == LayerMask.NameToLayer("Enemy") && !invincible){
+			//Debug.Log("hit");
+
 			gameController.TakeHit();
+
+			//knockbacks the player
 			Vector2 difference = (transform.position - collision.transform.position).normalized;
 			if(difference.x < 0) {
 				GetComponent<Rigidbody2D>().AddForce(transform.up * knockbackUD + (transform.right * knockbackLR) * -1);
@@ -169,6 +246,11 @@ public class PlayerController : MonoBehaviour{
 			else {
 				GetComponent<Rigidbody2D>().AddForce(transform.up * knockbackUD + transform.right * knockbackLR);
 			}
+
+			// resets the invincibilityTimer
+			invincibilityTimer = 0f;
+			invincible = true;
+			GetComponent<SpriteRenderer>().color = new Color(1f,0.2704402f,0.4190495f);
 		}
 	}
 }
