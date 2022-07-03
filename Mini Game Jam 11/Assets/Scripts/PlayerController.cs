@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour{
 	public PackageManager packageManager;
 	public Sprite[] movementSprites;
 	public Sprite[] idleSprites;
+	public float invincibilityLength = 0.5f;
 	public float speed = 0.01f;
 	public float jumpStrength = 1f;
 	public float grabRange = 1f;
@@ -23,6 +24,11 @@ public class PlayerController : MonoBehaviour{
 	bool grounded = false;
 	float jumpCooldown = 0.3f;
 	float jumpTimer = 0;
+	float invincibilityTimer = 0;
+	bool invincible = false;
+	
+
+
 	GameObject heldPackage = null;
 
 	public enum Mode {Idle, Moving};
@@ -49,6 +55,16 @@ public class PlayerController : MonoBehaviour{
 		}
 
 		AnimatePlayer();
+
+
+		//ticks down invincibility time
+		if(invincibilityTimer < invincibilityLength){
+			invincibilityTimer += Time.deltaTime;
+		}
+		else if(invincible == true){
+			GetComponent<SpriteRenderer>().color = Color.white;
+			invincible = false;
+		}
 
 	}
 	public void FixedUpdatePlayer(){
@@ -105,7 +121,7 @@ public class PlayerController : MonoBehaviour{
 		//transform.position += Time.deltaTime * speed*direction;
 		//checks if the player is touching the ground
 		grounded = Physics2D.OverlapBox(transform.position - new Vector3(0,1.0f,0),
-																		new Vector2(0.3f,0.01f),0f, LayerMask.GetMask("Platforms"));
+																		new Vector2(0.3f,0.01f),0f, LayerMask.GetMask("Platforms") | LayerMask.GetMask("Enemy"));
 
 		//jump
 		if(Input.GetKey("space") && grounded && jumpTimer >= jumpCooldown){
@@ -157,11 +173,14 @@ public class PlayerController : MonoBehaviour{
 	}
 
 	// used to check if the player was hit
-	private void OnCollisionEnter2D(Collision2D collision){
+	private void OnCollisionStay2D(Collision2D collision){
 
-		if( collision.gameObject.layer == LayerMask.NameToLayer("Enemy")){
+		if(collision.gameObject.layer == LayerMask.NameToLayer("Enemy") && !invincible){
 			Debug.Log("hit");
+
 			gameController.TakeHit();
+
+			//knockbacks the player
 			Vector2 difference = (transform.position - collision.transform.position).normalized;
 			if(difference.x < 0) {
 				GetComponent<Rigidbody2D>().AddForce(transform.up * knockbackUD + (transform.right * knockbackLR) * -1);
@@ -169,6 +188,11 @@ public class PlayerController : MonoBehaviour{
 			else {
 				GetComponent<Rigidbody2D>().AddForce(transform.up * knockbackUD + transform.right * knockbackLR);
 			}
+
+			// resets the invincibilityTimer
+			invincibilityTimer = 0f;
+			invincible = true;
+			GetComponent<SpriteRenderer>().color = Color.red;
 		}
 	}
 }
