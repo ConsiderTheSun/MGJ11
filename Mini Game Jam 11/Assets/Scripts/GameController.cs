@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour{
 	[Header("Set in Inspector")]
@@ -45,8 +46,13 @@ public class GameController : MonoBehaviour{
 
 	}
 
-	void EndGame(bool win){
+	public void EndGame(bool win){
 		playing = false;
-		Debug.Log("Game Over :(");
+		if(win){
+			SceneManager.LoadScene("gameVictory");
+		}
+		else{
+			SceneManager.LoadScene("Game Over");
+		}
 	}
 }
