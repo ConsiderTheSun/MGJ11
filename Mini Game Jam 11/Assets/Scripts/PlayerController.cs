@@ -8,7 +8,9 @@ public class PlayerController : MonoBehaviour{
 	public GameController gameController;
 	public PackageManager packageManager;
 	public Sprite[] movementSprites;
-	public Sprite[] idleSprites;
+	public Sprite[] atkSprites;
+	public Sprite idleSprites;
+	public Sprite jumpSprite;
 	public float invincibilityLength = 0.5f;
 	public float speed = 0.01f;
 	public float jumpStrength = 1f;
@@ -16,6 +18,7 @@ public class PlayerController : MonoBehaviour{
 	public float knockbackLR = 300f;
 	public float knockbackUD = 100f;
 	public float moveAnimTime = 1f;
+	public float atkAnimTime = 1f;
 	public float idleAnimTime = 1f;
 
 	[Header("Set Dynamically")]
@@ -31,7 +34,7 @@ public class PlayerController : MonoBehaviour{
 
 	GameObject heldPackage = null;
 
-	public enum Mode {Idle, Moving};
+	public enum Mode {Idle, Moving, Attacking};
 
 	Mode currentMode = Mode.Idle;
 	float animationTimer = 0f;
@@ -44,8 +47,14 @@ public class PlayerController : MonoBehaviour{
 
 	public void UpdatePlayer(){
 		UpdateMode();
-		// if player clicks, try to grab/drop a package
-		if(Input.GetMouseButtonDown(0)){
+
+		// if player left clicks, try to attack
+		if(Input.GetMouseButtonDown(0) && currentMode != Mode.Attacking){
+			animationFrame = 0;
+			currentMode = Mode.Attacking;
+		}
+		// if player right clicks, try to grab/drop a package
+		else if(Input.GetMouseButtonDown(1)){
 			if(heldPackage == null){
 				GrabPackage();
 			}
@@ -72,6 +81,9 @@ public class PlayerController : MonoBehaviour{
 	}
 
 	void UpdateMode(){
+		if(currentMode == Mode.Attacking)
+			return;
+
 		if(Mathf.Abs(GetComponent<Rigidbody2D>().velocity.x) > 0.2f){
 			currentMode = Mode.Moving;
 		}
@@ -84,10 +96,41 @@ public class PlayerController : MonoBehaviour{
 		animationTimer += Time.deltaTime;
 
 		//checks if it is time to advance the animation
-		if(currentMode == Mode.Idle){
-			GetComponent<SpriteRenderer>().sprite = idleSprites[0];
+
+		//checks if the player is in the air
+		if(currentMode == Mode.Attacking){
+			if(animationTimer > atkAnimTime){
+				//currentMode = Mode.Idle;
+
+				// resets the timer
+				animationTimer = 0;
+
+				// updates the current frame and sets it
+				animationFrame++;// = (animationFrame+1);
+				
+				if(animationFrame == 2){
+					Attack();
+				}
+
+			}
+
+			//GetComponent<SpriteRenderer>().sprite = atkSprites[0];
+			if(animationFrame >= atkSprites.Length){
+				GetComponent<SpriteRenderer>().sprite = idleSprites;
+				currentMode = Mode.Idle;
+			}
+			else{
+				GetComponent<SpriteRenderer>().sprite = atkSprites[animationFrame];
+			}
 		}
-		//checks if it is time to advance the animation
+		else if(!grounded){
+			GetComponent<SpriteRenderer>().sprite = jumpSprite;
+		}
+		// checks for idle
+		else if(currentMode == Mode.Idle){
+			GetComponent<SpriteRenderer>().sprite = idleSprites;
+		}
+		//checks if it is time to advance the move animation
 		else if(currentMode == Mode.Moving && animationTimer > moveAnimTime){
 			// resets the timer
 			animationTimer = 0;
@@ -98,6 +141,14 @@ public class PlayerController : MonoBehaviour{
 		}
 
 
+	}
+
+	void Attack(){
+		/*deliveredPackage = Physics2D.OverlapBox(dropLocation2.position,
+																		new Vector2(dropLocation2.localScale.x,dropLocation2.localScale.y), 
+																		0f,LayerMask.GetMask("Package2"));*/
+
+		GetComponent<SpriteRenderer>().color = Color.blue;
 	}
 
 	void Move(){

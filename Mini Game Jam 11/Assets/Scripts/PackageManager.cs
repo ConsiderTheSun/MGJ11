@@ -11,8 +11,10 @@ public class PackageManager : MonoBehaviour{
 	public Transform dropLocation2;
 	public Transform dropLocation3;
 
-	public GameObject[] packagePrefabs;
 	public int[] spawnOrder;
+	public GameObject packagePrefab;
+	public Sprite[] packageSprites;
+	public float packageScale = 1f;
 
 	[Header("Set Dynamically")]
 	List<GameObject> packageList = new List<GameObject>();
@@ -31,11 +33,16 @@ public class PackageManager : MonoBehaviour{
 		
 	}
 	void SpawnPackage(){
-		Debug.Log("Spawn!");
-		GameObject newPackage = Instantiate(packagePrefabs[spawnOrder[spawnIndex++]],spawnLocation);
+		GameObject newPackage = Instantiate(packagePrefab,spawnLocation);
+		newPackage.GetComponent<SpriteRenderer>().sprite = packageSprites[spawnOrder[spawnIndex]];
 		newPackage.transform.SetParent(null);
 		newPackage.transform.position = spawnLocation.position;
-		newPackage.transform.localScale = new Vector3(0.07f,0.07f,0.07f);
+		newPackage.transform.localScale = new Vector3(packageScale,packageScale,1f);
+
+		newPackage.layer = LayerMask.NameToLayer("Package"+(spawnOrder[spawnIndex]+1));
+
+		spawnIndex++;
+
 
 		packageList.Add(newPackage);
 	}
