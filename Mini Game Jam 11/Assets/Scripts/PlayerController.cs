@@ -22,6 +22,10 @@ public class PlayerController : MonoBehaviour{
 	public float atkAnimTime = 1f;
 	public float idleAnimTime = 1f;
 
+
+	public AudioSource jumpSxf;
+	public AudioSource deliverySxf;
+
 	[Header("Set Dynamically")]
 	public int health = 3;
 
@@ -51,6 +55,7 @@ public class PlayerController : MonoBehaviour{
 
 		// if player left clicks, try to attack
 		if(Input.GetMouseButtonDown(0) && currentMode != Mode.Attacking){
+			deliverySxf.Play();
 			animationFrame = 0;
 			currentMode = Mode.Attacking;
 		}
@@ -186,6 +191,7 @@ public class PlayerController : MonoBehaviour{
 		//jump
 		if(Input.GetKey("space") && grounded && jumpTimer >= jumpCooldown){
 			//Debug.Log("Jump!");
+			jumpSxf.Play();
 			GetComponent<Rigidbody2D>().AddForce(jumpStrength*transform.up, ForceMode2D.Impulse);
 			jumpTimer = 0;
 		}
