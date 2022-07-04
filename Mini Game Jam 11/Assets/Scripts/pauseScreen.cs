@@ -3,40 +3,48 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class pauseScreen : MonoBehaviour
-{
-    [SerializeField] GameObject pauseMenu;
+public class pauseScreen : MonoBehaviour{
 
-    void Start()
-    {
-        pauseMenu.SetActive(false);
-    }
+	[Header("Set in Inspector")] 
+	public GameObject pauseMenu;
 
-    public void gamePause()
-    {
-        pauseMenu.SetActive(true);
-        Time.timeScale = 0f;
-    }
+	[Header("Set Dynamically")]
+	bool gameIsPaused = false;
 
-    public void Resume()
-    {
-        pauseMenu.SetActive(false);
-        Time.timeScale = 1f;
-    }
 
-    public void Home(int sceneID)
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(sceneID);
-    }
+	void Start(){
+	//pauseMenu.SetActive(false);
+	}
 
-    public static bool gameIsPaused;
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            gameIsPaused = !gameIsPaused;
-            gamePause();
-        }
-    }
+	public void gamePause(){
+		gameIsPaused = true;
+		pauseMenu.SetActive(true);
+		Time.timeScale = 0f;
+	}
+
+	public void Resume(){
+		gameIsPaused = false;
+		pauseMenu.SetActive(false);
+		Time.timeScale = 1f;
+	}
+
+	public void Home(int sceneID){
+		Time.timeScale = 1f;
+		SceneManager.LoadScene(sceneID);
+	}
+
+	
+
+	void Update(){
+
+		if(Input.GetKeyDown(KeyCode.Escape)){
+
+			gameIsPaused = !gameIsPaused;
+			if(gameIsPaused)
+				gamePause();
+			else
+				Resume();
+
+		}
+	}
 }
