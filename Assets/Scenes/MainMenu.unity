@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 498396600}
   - component: {fileID: 498396599}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: People
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -257,7 +257,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Evelyn Cullen\nConsiderTheSun\nSakura \"Ai\" Shih\nFreddie \"ShayLinuxLycan\"
+  m_text: "Evelyn Cullen\nMadeline Avis\nSakura \"Ai\" Shih\nFreddie \"ShayLinuxLycan\"
     Riley \nCody R. Melvin\nChloe Ng\nMason Thompson\nStyr0foam\nBlake Glenn-Reller\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8b1834b4c3e95874f9014421bd4373fb, type: 2}
@@ -348,7 +348,7 @@ GameObject:
   - component: {fileID: 663811276}
   - component: {fileID: 663811275}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: Quit Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -431,8 +431,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1351347685}
-        m_TargetAssemblyTypeName: mainmenu, Assembly-CSharp
-        m_MethodName: quitGame
+        m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
+        m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -576,7 +576,7 @@ GameObject:
   - component: {fileID: 927794733}
   - component: {fileID: 927794732}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -711,7 +711,7 @@ GameObject:
   - component: {fileID: 1152034426}
   - component: {fileID: 1152034425}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Button Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1041,7 +1041,7 @@ GameObject:
   - component: {fileID: 1334690613}
   - component: {fileID: 1334690612}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Credits Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1288,7 +1288,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1351347680}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07fa321273be3c84dbecf5d77818eb49, type: 3}
+  m_Script: {fileID: 11500000, guid: f796ab48d7944444495b3579f90d32bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1790651420
@@ -1321,6 +1321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -1371,7 +1372,7 @@ GameObject:
   - component: {fileID: 1852417304}
   - component: {fileID: 1852417303}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Back Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1650,7 +1651,7 @@ GameObject:
   - component: {fileID: 1954636362}
   - component: {fileID: 1954636361}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Play Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1733,8 +1734,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1351347685}
-        m_TargetAssemblyTypeName: mainmenu, Assembly-CSharp
-        m_MethodName: startGame
+        m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
+        m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
